@@ -12,10 +12,15 @@ The system is designed to automatically start virtual machines during required w
 
 ## Problem Statement
 
-Non-production, development, and testing virtual machines are often left running even when they are not being used. This can result in unnecessary cloud resource consumption and increased costs.
+## Problem Statement
 
-Manual starting and stopping of VMs also requires administrator intervention and may lead to human errors.
+Non-production and test environment Virtual Machines are often left running outside business hours, resulting in unnecessary cloud resource consumption and increased Azure costs.
 
+Manual VM start and stop operations require administrator intervention and may lead to operational errors. In addition, failures in Azure Automation Runbooks may go unnoticed if proper monitoring and alerting are not configured.
+
+Another challenge is that Managed Identity permissions may be assigned more broadly than necessary for convenience, which can create unnecessary access privileges.
+
+Therefore, this project aims to automate VM start and stop operations, monitor runbook execution, provide failure alerts, and apply appropriate RBAC permissions following the principle of least privilege.
 ## Proposed Solution
 
 The project uses Azure Automation Runbooks to automate VM start and stop operations according to predefined schedules.
