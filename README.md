@@ -44,21 +44,49 @@ PowerShell Runbooks communicate with Azure Virtual Machines, while Managed Ident
 - Azure Monitor
 
 ## Project Architecture
-
-```text
-Azure Automation Account
-          |
-          v
-    Managed Identity
-          |
-          v
-   PowerShell Runbook
-          |
-          v
-    Scheduled Execution
-          |
-          v
-     Azure Virtual Machine
-          |
-          v
- Monitoring and Alerts
+                    AZURE AUTOMATION
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+       START SCHEDULE              STOP SCHEDULE
+         (9:00 AM)                   (6:00 PM)
+              │                         │
+              ▼                         ▼
+       ┌─────────────────────────────────────┐
+       │       AZURE AUTOMATION ACCOUNT      │
+       │                                     │
+       │   ┌─────────────┐  ┌─────────────┐ │
+       │   │  Start-VM   │  │   Stop-VM   │ │
+       │   │  Runbook    │  │   Runbook   │ │
+       │   └──────┬──────┘  └──────┬──────┘ │
+       └──────────┼─────────────────┼────────┘
+                  │                 │
+                  └────────┬────────┘
+                           ▼
+                 ┌──────────────────┐
+                 │ Managed Identity │
+                 └────────┬─────────┘
+                          ▼
+                 ┌──────────────────┐
+                 │  Azure RBAC      │
+                 │  Permissions     │
+                 └────────┬─────────┘
+                          ▼
+                 ┌──────────────────┐
+                 │   Azure VM       │
+                 │                  │
+                 │ Running ↔ Stopped│
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Automation Job   │
+                 │     History      │
+                 └────────┬─────────┘
+                          ▼
+                 ┌──────────────────┐
+                 │ Azure Monitor    │
+                 │   & Alerts       │
+                 └────────┬─────────┘
+                          ▼
+                    Administrator
