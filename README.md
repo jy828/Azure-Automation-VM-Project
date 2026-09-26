@@ -90,3 +90,23 @@ PowerShell Runbooks communicate with Azure Virtual Machines, while Managed Ident
                  └────────┬─────────┘
                           ▼
                     Administrator
+## Services / Technologies Required
+
+### Azure Services
+
+- Azure Virtual Machines
+- Azure Automation Account
+- Azure Automation Runbooks
+- Azure Managed Identity
+- Azure Role-Based Access Control (RBAC)
+- Azure Automation Schedules
+- Azure Monitor and Alerts
+
+### Technologies
+
+- Microsoft Azure
+- PowerShell
+- Azure Portal
+- Git
+- GitHub
+- Markdown
